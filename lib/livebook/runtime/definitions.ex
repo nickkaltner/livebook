@@ -267,6 +267,17 @@ defmodule Livebook.Runtime.Definitions do
     },
     %{
       type: :file_action,
+      file_types: ["text/tsv", ".tsv"],
+      description: "Create a dataframe",
+      source: """
+      df =
+        Kino.FS.file_path("{{NAME}}")
+        |> Explorer.DataFrame.from_csv!(delimiter: "\t")\
+      """,
+      packages: [kino, kino_explorer]
+    },
+    %{
+      type: :file_action,
       file_types: [".parquet"],
       description: "Create a dataframe",
       source: """
